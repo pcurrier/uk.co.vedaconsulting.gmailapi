@@ -67,6 +67,39 @@ class CRM_Gmailapi_Page_AJAX {
     return drupal_http_request($url, $options);
   }
 
+  // Function that retrieves a list of CiviCRM groups
+  static function getGroups(){
+    self::init();
+
+    $result = array(
+      'is_error' => 0,
+      'message' => '',
+      'groups' => array(),
+    );
+    try {
+      $resultGroups = civicrm_api3('Group', 'get', array(
+        'sequential' => 1,
+        'is_active' => 1,
+        'is_hidden' => 0,
+      ));
+      if (!empty($resultGroups['values'])) {
+        foreach ($resultGroups['values'] as $zzz => $groupDetails) {
+          $grp = array();
+          $grp['id'] = $groupDetails['id'];
+          $grp['title'] = $groupDetails['title'];
+          array_push($result['groups'], $grp);
+        }
+      }
+    } catch (CiviCRM_API3_Exception $e) {
+      $error = $e->getMessage();
+      CRM_Core_Error::debug_log_message($error);
+      $result['is_error'] = 1;
+      $result['message'] = "Error calling CiviCRM Group.get api: $error";
+    }
+
+    self::returnApiResult($result);
+  }
+
   // Function to call outlook API
   static function callOutlookApi(){
     self::init();

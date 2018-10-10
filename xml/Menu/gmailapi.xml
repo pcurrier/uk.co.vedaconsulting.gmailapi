@@ -14,4 +14,11 @@
      <access_callback>1</access_callback>
      <is_public>true</is_public>
   </item>
+  <item>
+     <path>civicrm/gmail/getgroups</path>
+     <page_callback>CRM_Gmailapi_Page_AJAX::getGroups</page_callback>
+     <title>Gmail Activity Log</title>
+     <access_callback>1</access_callback>
+     <is_public>true</is_public>
+  </item>
 </menu>
