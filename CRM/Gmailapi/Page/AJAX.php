@@ -169,7 +169,7 @@ class CRM_Gmailapi_Page_AJAX {
       $result = civicrm_api3('CiviOutlook', 'createactivity', $params);
 
       // Process Attachment, if activity created and attachments found in the request
-      if ($result['id'] && $processAttachment){
+      if (isset($result['id']) && !empty($result['id']) && $processAttachment){
         $attachments = $params['attachment'];
         if(!empty($attachments)){
 
