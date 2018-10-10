@@ -140,6 +140,9 @@ class CRM_Gmailapi_Page_AJAX {
       if (isset($_REQUEST['email_body'])) {
         $params['email_body'] = $_REQUEST['email_body'];
       }
+      if (isset($_REQUEST['group'])) {
+        $params['group'] = $_REQUEST['group'];
+      }
       if (isset($_REQUEST['ot_target_contact_id'])) {
         $params['ot_target_contact_id'] = $_REQUEST['ot_target_contact_id'];
       }
@@ -259,6 +262,7 @@ class CRM_Gmailapi_Page_AJAX {
     CRM_Utils_JSON::output($result);
     CRM_Utils_System::civiExit();
   }
+
   // Function to to extract valid email addres from email string
   static function extractValidEmail($string, $start, $end){
     $pos = stripos($string, $start);
